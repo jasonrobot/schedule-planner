@@ -1,24 +1,22 @@
 module State exposing (init, update)
 
 import Types exposing (..)
+import User.Types as User
 
 
 init : Model
 init =
-    { value = 0 }
+    { users =
+        [ { name = "Foobar"
+          , tasks = []
+          }
+        , { name = "Qwerty"
+          , tasks = []
+          }
+        ]
+    }
 
 
+update : Msg -> Model -> Model
 update message model =
-    case message of
-        Increment ->
-            { model | value = model.value + 1 }
-
-        Decrement ->
-            { model | value = model.value - 1 }
-
-        Change inputString ->
-            case String.toInt inputString of
-                Just inputValue ->
-                    { model | value = inputValue }
-                Nothing ->
-                    { model | value = 0 }
+    model

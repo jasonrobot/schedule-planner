@@ -6,15 +6,14 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Types exposing (..)
+import User.View exposing (rootView)
 
-
+rootView : Model -> Html msg
 rootView model =
-    div [ class "form" ]
-        [ div [ class "value-input" ]
-            [ input [ value (String.fromInt model.value), onInput Types.Change ] []
-            ]
-        , div [ class "value-buttons" ]
-            [ button [ onClick Types.Decrement ] [ text "-" ]
-            , button [ onClick Types.Increment ] [ text "+" ]
-            ]
+    div []
+        [ text "Hello, world!"
+        , br [] []
+        , List.length model.users |> String.fromInt |> text
+        , br [] []
+        , div [] (List.map (\user -> User.View.rootView user) model.users)
         ]

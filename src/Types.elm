@@ -3,6 +3,8 @@
 
 module Types exposing (Model, Msg(..))
 
+import User.Types as User
+
 
 type Msg
     = Increment
@@ -11,4 +13,4 @@ type Msg
 
 
 type alias Model =
-    { value : Int }
+    { users : List User.Model }
