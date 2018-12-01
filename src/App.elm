@@ -13,5 +13,5 @@ main =
     Browser.sandbox
         { init = State.init
         , update = State.update
-        , view = View.debugView
+        , view = View.rootView
         }

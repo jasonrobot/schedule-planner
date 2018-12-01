@@ -1,4 +1,4 @@
-module User.View exposing (debugView, viewAll)
+module User.View exposing (debugView, viewAll, rootView)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -27,7 +27,7 @@ debugView model =
         , div [] [ text "has these tasks:" ]
         , ul [ class "user__task-list" ]
             (List.map
-                (\task -> Task.View.debugView task)
+                (\task -> Task.View.rootView task)
                 model.tasks
             )
         ]
@@ -35,3 +35,8 @@ debugView model =
 viewAll : List Model -> Html msg
 viewAll models =
     div [ class "all-users" ] (List.map (\user -> debugView user) models)
+
+rootView : Model -> Html msg
+rootView model =
+    div [ style "grid-row-end" (String.fromInt (List.length model.tasks))]
+        [ text model.name ]

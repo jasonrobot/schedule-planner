@@ -6,6 +6,10 @@ init _name =
     , tasks = []
     }
 
+getAllTasks : List Model -> List Task.Model
+getAllTasks users =
+    map (\user -> user.tasks) users \> flatten
+
 update : Msg -> Model -> Model
 update message model =
     case message of
