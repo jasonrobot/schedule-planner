@@ -1,0 +1,84 @@
+
+
+html * {
+    font-size: 24px;
+    border: 1px solid;
+    box-sizing: border-box;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    /* border: 1px solid; */
+}
+
+.header > div {
+    /* border: 1px solid; */
+    padding: 5px;
+}
+
+.header .current-project-name {
+    flex-grow: 1;
+}
+
+.app__grid {
+    /* --grid-gap: 5px; */
+    --row-base-height: 50px;
+
+    display: grid;
+    /* grid-gap: var(--grid-gap); */
+    /* grid-template-areas: ; */
+    grid-template-areas: "search months" "users tasks";
+    grid-template-rows: 1fr auto;
+    grid-template-columns: 200px;
+
+}
+
+.user__list {
+    grid-template-rows: calc(3 * var(--row-base-height)) calc(2 * var(--row-base-height));
+}
+
+.app__grid div {
+    margin: 5px;
+}
+
+.user__list,
+.task-grid {
+    display: grid;
+    /* grid-gap: var(--grid-gap); */
+    grid-auto-rows: 50px;
+}
+
+.month__list {
+    display: grid;
+    grid-auto-flow: column;
+}
+
+.task-grid {
+    grid-auto-columns: 150px;
+    grid-auto-flow: row;
+}
+
+.task-grid .task {
+    background-color: gray;
+    border-radius: 15px;
+    /* grid-column-start: attr(data-start); */
+    /* grid-column-end: attr(data-end); */
+    /* grid-column-start: 2; */
+    /* grid-column-end: 5; */
+    /* grid-row-start: 2; */
+    grid-column-start: 1;
+}
+
+.user-1 {
+    grid-row-start: 1;
+}
+
+.user-2 {
+    grid-row-start: 2;
+}
+
+.user-3 {
+    grid-row-start: 3;
+}
