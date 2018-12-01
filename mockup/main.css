@@ -1,0 +1,108 @@
+
+
+html * {
+    font-size: 24px;
+    border: 1px solid;
+    box-sizing: border-box;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    /* border: 1px solid; */
+}
+
+.header > div {
+    /* padding: 5px; */
+}
+
+.header .current-project-name {
+    flex-grow: 1;
+}
+
+.app__grid {
+    /* --grid-gap: 5px; */
+    --row-base-height: 50px;
+
+    display: grid;
+    /* grid-gap: var(--grid-gap); */
+    grid-template-rows: [month-start] 100px [month-end] auto;
+    grid-template-columns: [user-start] 200px [jan] repeat(30, 10px) [feb] repeat(30, 10px) [mar] repeat(30, 10px) [apr] repeat(30, 10px);
+    grid-auto-columns: 10px;
+    grid-auto-rows: 40px;
+}
+
+.user__list {
+    /* grid-template-rows: calc(3 * var(--row-base-height)) calc(2 * var(--row-base-height)); */
+}
+
+.app__grid div {
+    /* use this instead of grid gap for easier spacing math */
+    margin: 5px;
+}
+
+.user__list,
+.task-grid {
+    /* display: grid; */
+    /* grid-gap: var(--grid-gap); */
+    grid-auto-rows: 50px;
+}
+
+.month__list {
+    /* display: grid; */
+    /* grid-auto-flow: column; */
+}
+
+.task-grid {
+    /* grid-auto-columns: 150px; */
+    /* grid-auto-flow: row; */
+}
+
+.task-grid .task {
+    background-color: gray;
+    border-radius: 15px;
+    /* grid-column-start: attr(data-start); */
+    /* grid-column-end: attr(data-end); */
+    /* grid-column-start: 2; */
+    /* grid-column-end: 5; */
+    /* grid-row-start: 2; */
+    /* grid-column-start: 1; */
+}
+
+
+.user-1 {
+     /* grid-row-start: 1; */
+}
+
+.user-2 {
+    /* grid-row-start: 2; */
+}
+
+.user-3 {
+    /* grid-row-start: 3; */
+}
+
+
+.month {
+    /* grid-area: months; */
+    grid-row: month-start;
+    /* grid-column: user-end; */
+    grid-column-end: span 30;
+}
+
+.user {
+    /* grid-area: users; */
+    grid-column: user-start;
+}
+
+.task {
+    /* grid-area: tasks; */
+    /* grid-row: month-end; */
+    /* display: none; */
+}
+
+.search {
+    grid-column: user-start;
+    grid-row: month-start;
+}
