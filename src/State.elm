@@ -8,7 +8,16 @@ init : Model
 init =
     { users =
         [ { name = "Foobar"
-          , tasks = []
+          , tasks =
+                [ { name = "Task 1"
+                  , start = 10
+                  , end = 20
+                  }
+                , { name = "Task 2"
+                  , start = 15
+                  , end = 30
+                  }
+                ]
           }
         , { name = "Qwerty"
           , tasks = []

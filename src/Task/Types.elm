@@ -1,15 +1,23 @@
-module Task.Types exposing (Model, Id)
+module Task.Types exposing (Id, Model)
 
 import Tag.Types as Tag exposing (..)
 
-type alias Id = Int
+
+type alias Id =
+    Int
+
+
+
+-- , description : String
+-- , tags : List Tag.Model
+
 
 type alias Model =
-    { id : Id
-    , name : String
-    , description : String
-    , tags : List Tag.Model
+    { name : String
+    , start : Int
+    , end : Int
     }
+
 
 type Msg
     = AddTag

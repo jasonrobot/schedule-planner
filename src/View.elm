@@ -1,4 +1,4 @@
-module View exposing (rootView)
+module View exposing (debugView)
 
 -- import Types.Msg exposing (..)
 
@@ -6,10 +6,10 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Types exposing (..)
-import User.View exposing (rootView)
+import User.View exposing (debugView)
 
-rootView : Model -> Html msg
-rootView model =
+debugView : Model -> Html msg
+debugView model =
     div []
         [ text "Hello, world!"
         , br [] []

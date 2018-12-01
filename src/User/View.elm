@@ -1,9 +1,11 @@
-module User.View exposing (rootView, viewAll)
+module User.View exposing (debugView, viewAll)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import User.Types exposing (..)
+
+import Task.View -- exposing (debugView)
 
 
 
@@ -18,18 +20,18 @@ renderEach container containerAttrs itemRenderer list =
 -- List.map (\item -> element attrs [ renderer item ]) list
 
 
-rootView : Model -> Html msg
-rootView model =
+debugView : Model -> Html msg
+debugView model =
     div []
         [ div [] [ text ("User: " ++ model.name) ]
         , div [] [ text "has these tasks:" ]
         , ul [ class "user__task-list" ]
             (List.map
-                (\task -> li [ class "user__task" ] [ text task.name ])
+                (\task -> Task.View.debugView task)
                 model.tasks
             )
         ]
 
 viewAll : List Model -> Html msg
 viewAll models =
-    div [ class "all-users" ] (List.map (\user -> rootView user) models)
+    div [ class "all-users" ] (List.map (\user -> debugView user) models)
