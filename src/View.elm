@@ -15,5 +15,5 @@ rootView model =
         , br [] []
         , List.length model.users |> String.fromInt |> text
         , br [] []
-        , div [] (List.map (\user -> User.View.rootView user) model.users)
+        , User.View.viewAll model.users
         ]
