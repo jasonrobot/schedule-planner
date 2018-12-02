@@ -42,7 +42,7 @@ renderUsers model =
     List.map2
         (\user startRow -> User.View.rootView user startRow)
         model.users
-        (User.View.usersToStartRows model.users)
+        (User.View.getRows model.users)
         |> List.concat
 
 

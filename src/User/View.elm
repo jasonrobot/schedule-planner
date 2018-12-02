@@ -1,4 +1,4 @@
-module User.View exposing (debugView, rootView, viewAll, usersToStartRows)
+module User.View exposing (debugView, rootView, getRows, viewAll)
 
 -- exposing (debugView)
 
@@ -53,12 +53,9 @@ rootView model startRowIndex =
             [ text model.name ]
         )
         (let
-            userRow =
-                [ [] ]
-
             theRows =
                 -- UserRow
-                List.foldr (\task -> addTaskToUserRow task) userRow model.tasks
+                Task.View.buildUserRow model.tasks
          in
          List.indexedMap
             (\index taskRow ->
@@ -79,51 +76,20 @@ rootView model startRowIndex =
         )
 
 
-type alias Task =
-    Task.Types.Model
+-- usersToStartRows : List Model -> List Int
+-- usersToStartRows users =
+--     List.indexedMap
+--         (\index user -> (List.length (Task.View.buildUserRow user.tasks)) + index - 1)
+--         -- (\index user -> (List.length user.tasks) + index - 1)
+--         users
+--     List.map
 
+getRowsR : List Model -> Int -> List Int
+getRowsR users startRow =
+    case List.head users of
+        Nothing -> [startRow]
+        Just user -> startRow :: getRowsR (List.drop 1 users) (startRow + (List.length user.tasks))
 
-type alias TaskRow =
-    List Task
-
-
-type alias UserRow =
-    List TaskRow
-
-
-taskInSameRange : Task -> Task -> Bool
-taskInSameRange t1 t2 =
-    (t1.start > t2.start)
-        && (t1.start < t2.end)
-        && (t2.start > t1.start)
-        && (t2.start < t1.end)
-
-
-canFitInTaskRow : Task -> TaskRow -> Bool
-canFitInTaskRow task taskRow =
-    List.any (taskInSameRange task) taskRow
-
-
-
-addTaskToUserRow : Task -> UserRow -> UserRow
-addTaskToUserRow task userRow =
-    let
-        ( fittingRows, otherRows ) =
-            -- (TaskRow, TaskRow)
-            List.partition (\tr -> canFitInTaskRow task tr) userRow
-    in
-    case List.head fittingRows of
-        Just row ->
-            -- add to existing row
-            (task :: row) :: List.drop 1 fittingRows ++ otherRows
-
-        Nothing ->
-            -- just add this task in a new row
-            [ task ] :: userRow
-
-
-usersToStartRows : List Model -> List Int
-usersToStartRows users =
-    List.indexedMap
-        (\index user -> (List.length (List.foldl (\task -> addTaskToUserRow task) [] user.tasks)) + index)
-        users
+getRows : List Model -> List Int
+getRows users =
+    getRowsR users 1
