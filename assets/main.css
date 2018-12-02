@@ -1,29 +1,35 @@
-.form {
-    margin: auto;
-    width: 25%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+/* .form { */
+/*     margin: auto; */
+/*     width: 25%; */
+/*     display: flex; */
+/*     flex-direction: column; */
+/*     align-items: center; */
+/* } */
 
-.form .value-input {
-    width: 100%;
-}
+/* .form .value-input { */
+/*     width: 100%; */
+/* } */
 
-.form .value-input input {
-    width: 100%;
-    padding: 0;
+/* .form .value-input input { */
+/*     width: 100%; */
+/*     padding: 0; */
+/*     box-sizing: border-box; */
+/*     text-align: center; */
+/* } */
+
+/* .form .value-buttons { */
+/*     width: 100%; */
+/*     display: flex; */
+/* } */
+
+/* .form .value-buttons button { */
+/*     flex-grow: 1; */
+/* } */
+
+html * {
+    font-size: 24px;
+    border: 1px solid;
     box-sizing: border-box;
-    text-align: center;
-}
-
-.form .value-buttons {
-    width: 100%;
-    display: flex;
-}
-
-.form .value-buttons button {
-    flex-grow: 1;
 }
 
 .app-grid {
@@ -39,3 +45,20 @@
     grid-auto-rows: 40px;
 }
 
+.app-grid div {
+    margin: 5px;
+}
+
+.search {
+    grid-column: user-start;
+    grid-row: month-start;
+}
+
+.month {
+    grid-row: month-start;
+    grid-column-end: span 30;
+}
+
+.user {
+    grid-column: user-start;
+}

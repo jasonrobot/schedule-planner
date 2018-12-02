@@ -22,7 +22,7 @@ debugView model =
 
 renderSearch : Html msg
 renderSearch =
-    div [] []
+    div [class "search"] [text "Search!"]
 
 
 renderMonths : Model -> List (Html msg)
@@ -47,10 +47,14 @@ renderUsers model =
 -- since each user will just render as a single element, we need to do the tasks at the top level
 -- of the grid here
 
+-- getTaskRow : Model -> Int
+-- getTaskOrder tasks =
+--     -- sort by
+
 
 renderTasks : Model -> List (Html msg)
 renderTasks model =
-    List.map Task.View.rootView (List.map (\user -> user.tasks) model.users |> List.concat)
+    -- List.map Task.View.rootView (List.map (\user -> user.tasks) model.users |> List.concat)
 
 
 
