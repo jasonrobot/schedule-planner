@@ -1,4 +1,4 @@
-module User.View exposing (debugView, rootView, viewAll)
+module User.View exposing (debugView, rootView, viewAll, usersToStartRows)
 
 -- exposing (debugView)
 
@@ -41,13 +41,42 @@ viewAll models =
     div [ class "all-users" ] (List.map (\user -> debugView user) models)
 
 
-rootView : Model -> Html msg
-rootView model =
-    div
-        [ style "grid-row-end" (String.append "span " (String.fromInt (List.length model.tasks)))
-        , class "user"
-        ]
-        [ text model.name ]
+rootView : Model -> Int -> List (Html msg)
+rootView model startRowIndex =
+    (::)
+        (div
+            [ style "grid-row-start" (String.fromInt (startRowIndex + 1))
+            , style "grid-row-end" (String.append "span " (String.fromInt (List.length model.tasks)))
+            , class "user"
+            , class (String.fromInt startRowIndex)
+            ]
+            [ text model.name ]
+        )
+        (let
+            userRow =
+                [ [] ]
+
+            theRows =
+                -- UserRow
+                List.foldr (\task -> addTaskToUserRow task) userRow model.tasks
+         in
+         List.indexedMap
+            (\index taskRow ->
+                List.map
+                    (\task ->
+                        div
+                            [ class (String.fromInt index)
+                            , style "grid-column-start" (String.fromInt task.start)
+                            , style "grid-column-end" (String.fromInt task.end)
+                            , style "grid-row-start" (String.fromInt (startRowIndex + index + 1))
+                            ]
+                            [ text task.name ]
+                    )
+                    taskRow
+            )
+            theRows
+            |> List.concat
+        )
 
 
 type alias Task =
@@ -62,23 +91,22 @@ type alias UserRow =
     List TaskRow
 
 
+taskInSameRange : Task -> Task -> Bool
+taskInSameRange t1 t2 =
+    (t1.start > t2.start)
+        && (t1.start < t2.end)
+        && (t2.start > t1.start)
+        && (t2.start < t1.end)
+
+
 canFitInTaskRow : Task -> TaskRow -> Bool
 canFitInTaskRow task taskRow =
-    List.any (\t -> (task.start > t.start) && (task.start < t.end)) taskRow
+    List.any (taskInSameRange task) taskRow
 
 
-addTaskToUserRow : Task -> UserRow -> TaskRow
+
+addTaskToUserRow : Task -> UserRow -> UserRow
 addTaskToUserRow task userRow =
-    case List.filter (\tr -> canFitInTaskRow task tr) userRow |> List.head of
-        Just tr ->
-            task :: tr
-
-        Nothing ->
-            [ task ]
-
-
-foo : Task -> UserRow -> UserRow
-foo task userRow =
     let
         ( fittingRows, otherRows ) =
             -- (TaskRow, TaskRow)
@@ -94,6 +122,8 @@ foo task userRow =
             [ task ] :: userRow
 
 
-
--- renderTasks : Model -> List (Html msg)
--- renderTasks model =
+usersToStartRows : List Model -> List Int
+usersToStartRows users =
+    List.indexedMap
+        (\index user -> (List.length (List.foldl (\task -> addTaskToUserRow task) [] user.tasks)) + index)
+        users

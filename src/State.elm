@@ -13,14 +13,19 @@ init =
                   , start = 10
                   , end = 20
                   }
-                , { name = "Task 2"
-                  , start = 15
-                  , end = 30
-                  }
+                -- , { name = "Task 2"
+                --   , start = 15
+                --   , end = 30
+                --   }
                 ]
           }
         , { name = "Qwerty"
-          , tasks = []
+          , tasks =
+                [ { name = "Task 3"
+                  , start = 5
+                  , end = 45
+                  }
+                ]
           }
         ]
     }

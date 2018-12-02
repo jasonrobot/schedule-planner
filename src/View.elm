@@ -5,9 +5,10 @@ module View exposing (debugView, rootView)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Task.View exposing (debugView, rootView)
 import Types exposing (..)
 import User.View exposing (debugView, rootView)
-import Task.View exposing (debugView, rootView)
+
 
 debugView : Model -> Html msg
 debugView model =
@@ -22,7 +23,7 @@ debugView model =
 
 renderSearch : Html msg
 renderSearch =
-    div [class "search"] [text "Search!"]
+    div [ class "search" ] [ text "Search!" ]
 
 
 renderMonths : Model -> List (Html msg)
@@ -38,23 +39,11 @@ renderMonths model =
 
 renderUsers : Model -> List (Html msg)
 renderUsers model =
-    List.map
-        (\user -> User.View.rootView user)
+    List.map2
+        (\user startRow -> User.View.rootView user startRow)
         model.users
-
-
-
--- since each user will just render as a single element, we need to do the tasks at the top level
--- of the grid here
-
--- getTaskRow : Model -> Int
--- getTaskOrder tasks =
---     -- sort by
-
-
-renderTasks : Model -> List (Html msg)
-renderTasks model =
-    -- List.map Task.View.rootView (List.map (\user -> user.tasks) model.users |> List.concat)
+        (User.View.usersToStartRows model.users)
+        |> List.concat
 
 
 
@@ -68,6 +57,7 @@ rootView model =
             [ [ renderSearch ]
             , renderMonths model
             , renderUsers model
-            , renderTasks model
+
+            -- , renderTasks model
             ]
         )

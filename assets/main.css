@@ -39,7 +39,7 @@ html * {
     /* --row-base-height: 50px; */
     /* grid-gap: var(--grid-gap); */
 
-    grid-template-rows: [month-start] 100px [month-end] auto;
+    grid-template-rows: [month-start] 100px [month-end] 40px;
     grid-template-columns: [user-start] 200px [jan] repeat(30, 10px) [feb] repeat(30, 10px) [mar] repeat(30, 10px) [apr] repeat(30, 10px);
     grid-auto-columns: 10px;
     grid-auto-rows: 40px;
