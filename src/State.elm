@@ -13,10 +13,10 @@ init =
                   , start = 10
                   , end = 20
                   }
-                -- , { name = "Task 2"
-                --   , start = 15
-                --   , end = 30
-                --   }
+                , { name = "Task 2"
+                  , start = 15
+                  , end = 30
+                  }
                 ]
           }
         , { name = "Qwerty"
@@ -24,6 +24,10 @@ init =
                 [ { name = "Task 3"
                   , start = 5
                   , end = 45
+                  }
+                , { name = "Task 3"
+                  , start = 50
+                  , end = 65
                   }
                 ]
           }
